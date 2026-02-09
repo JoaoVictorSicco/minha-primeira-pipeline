@@ -1,0 +1,24 @@
+name: Build Pipeline
+
+on: [push]
+
+jobs:
+  build:
+    runs-on: ubuntu-22.04
+
+    steps:
+      - name: Checkout do código
+        uses: actions/checkout@v4
+
+      - name: Instalar dependências
+        run: |
+          sudo apt update
+          sudo apt install -y cmake build-essential
+
+      - name: Configurar e compilar
+        run: |
+          cmake -B build .
+          cmake --build build
+
+      - name: Executar o binário
+        run: ./build/app
